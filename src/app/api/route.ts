@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 
-export async function GET(res: NextResponse) {
+export async function GET() {
   cookies().set({
     name: "my_cookie",
     value: "jummy-cookie",
