@@ -7,7 +7,7 @@ export async function GET() {
     name: "my_cookie",
     value: "jummy-cookie",
     httpOnly: true,
-    domain: env === "development" ? ".localhost:3000" : ".bunxt.vercel.app",
+    domain: env === "development" ? ".localhost" : ".bunxt.vercel.app",
     secure: env === "development" ? false : true,
     path: "/",
   });
