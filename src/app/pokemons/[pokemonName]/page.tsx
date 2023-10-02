@@ -6,6 +6,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
+
+export const revalidate = 60;
 
 interface Props {
   params: {
@@ -13,12 +16,16 @@ interface Props {
   };
 }
 
-export const revalidate = 60;
-
 export async function generateMetadata({
   params: { pokemonName },
 }: Props): Promise<Metadata> {
   const pokemon = await getPokemon(pokemonName);
+
+  if (!pokemon) {
+    return {
+      title: "Pokemon Not Found",
+    };
+  }
 
   return {
     title: `Bunxt - ${pokemon.name}`,
@@ -30,7 +37,9 @@ export default async function PokemonPage({ params: { pokemonName } }: Props) {
   const pokemon = await getPokemon(pokemonName);
   const pokemonSpeciesData = getPokemonSpecies(pokemonName);
 
-  // const [pokemon, pokemonSpecies] = await Promise.all([pokemonData, pokemonSpeciesData]);
+  if (!pokemon) {
+    return notFound();
+  }
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">

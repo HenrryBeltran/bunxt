@@ -12,7 +12,7 @@ export default async function PokemonsPage() {
           <div key={pokemon.name}>
             <Link
               href={`/pokemons/${pokemon.name.toLowerCase()}`}
-              className="capitalize text-blue-700 drop-shadow"
+              className="capitalize text-blue-700"
             >
               {pokemon.name}
             </Link>
