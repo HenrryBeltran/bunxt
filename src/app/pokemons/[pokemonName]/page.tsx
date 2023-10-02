@@ -5,8 +5,8 @@ import getPokemonSpecies from "@/lib/getPokemonSpecies";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export const revalidate = 60;
 
@@ -70,7 +70,6 @@ export default async function PokemonPage({ params: { pokemonName } }: Props) {
       <Suspense
         fallback={<h2 className="animate-pulse font-light text-slate-600">Loading...</h2>}
       >
-        {/* @ts-expect-error Server Component */}
         <PokemonSpecies speciesPromise={pokemonSpeciesData} />
       </Suspense>
     </main>
