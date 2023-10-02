@@ -1,7 +1,7 @@
 import { PokemonSpecies } from "@/components/PokemonSpecies";
 import Image from "next/image";
 import Link from "next/link";
-import { PokemonClient } from "pokenode-ts";
+import { Pokemon, PokemonSpecies as Species } from "pokenode-ts";
 import { FC } from "react";
 
 interface Props {
@@ -10,26 +10,20 @@ interface Props {
   };
 }
 
-async function getPokemon(name: string) {
-  const api = new PokemonClient();
+async function getPokemon(name: string): Promise<Pokemon> {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`);
 
-  try {
-    return await api.getPokemonByName(name);
-  } catch (error) {
-    console.log(error);
-    throw new Error("Couldn't fetch the data");
-  }
+  if (!res.ok) throw new Error("Couldn't fetch the data");
+
+  return res.json();
 }
 
-async function getPokemonGeneration(name: string) {
-  const api = new PokemonClient();
+async function getPokemonGeneration(name: string): Promise<Species> {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${name}/`);
 
-  try {
-    return await api.getPokemonSpeciesByName(name);
-  } catch (error) {
-    console.log(error);
-    throw new Error("Couldn't fetch the data");
-  }
+  if (!res.ok) throw new Error("Couldn't fetch the data");
+
+  return res.json();
 }
 
 const PokemonPage: FC<Props> = async ({ params: { pokemonName } }) => {
