@@ -1,7 +1,12 @@
 import Link from "next/link";
 
 async function getAllPokemons(): Promise<Pokemon[]> {
-  const res = await fetch("http://localhost:3000/api/pokemons");
+  const hostname =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://bunxt.vercel.app";
+
+  const res = await fetch(`${hostname}/api/pokemons`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
