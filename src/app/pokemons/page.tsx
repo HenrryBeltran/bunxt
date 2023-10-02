@@ -15,7 +15,7 @@ async function getAllPokemons(): Promise<Pokemon[]> {
   return res.json();
 }
 
-export default async function PokemonPage() {
+export default async function PokemonsPage() {
   const pokemons = await getAllPokemons();
 
   return (

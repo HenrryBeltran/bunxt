@@ -2,7 +2,7 @@ import { PokemonSpecies } from "@/components/PokemonSpecies";
 import Image from "next/image";
 import Link from "next/link";
 import { Pokemon, PokemonSpecies as Species } from "pokenode-ts";
-import { FC } from "react";
+import { Suspense } from "react";
 
 interface Props {
   params: {
@@ -26,11 +26,11 @@ async function getPokemonGeneration(name: string): Promise<Species> {
   return res.json();
 }
 
-const PokemonPage: FC<Props> = async ({ params: { pokemonName } }) => {
-  const pokemonData = getPokemon(pokemonName);
-  const pokemonSpeciesData = await getPokemonGeneration(pokemonName);
+export default async function PokemonPage({ params: { pokemonName } }: Props) {
+  const pokemon = await getPokemon(pokemonName);
+  const pokemonSpeciesData = getPokemonGeneration(pokemonName);
 
-  const [pokemon, pokemonSpecies] = await Promise.all([pokemonData, pokemonSpeciesData]);
+  // const [pokemon, pokemonSpecies] = await Promise.all([pokemonData, pokemonSpeciesData]);
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -58,9 +58,12 @@ const PokemonPage: FC<Props> = async ({ params: { pokemonName } }) => {
           </li>
         ))}
       </ul>
-      <PokemonSpecies species={pokemonSpecies} />
+      <Suspense
+        fallback={<h2 className="animate-pulse font-light text-slate-600">Loading...</h2>}
+      >
+        {/* @ts-expect-error Server Component */}
+        <PokemonSpecies speciesPromise={pokemonSpeciesData} />
+      </Suspense>
     </main>
   );
-};
-
-export default PokemonPage;
+}
