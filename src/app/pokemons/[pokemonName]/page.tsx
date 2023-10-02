@@ -1,6 +1,7 @@
 import { PokemonSpecies } from "@/components/PokemonSpecies";
 import getPokemon from "@/lib/getPokemon";
 import getPokemonSpecies from "@/lib/getPokemonSpecies";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -8,6 +9,17 @@ import { Suspense } from "react";
 interface Props {
   params: {
     pokemonName: string;
+  };
+}
+
+export async function generateMetadata({
+  params: { pokemonName },
+}: Props): Promise<Metadata> {
+  const pokemon = await getPokemon(pokemonName);
+
+  return {
+    title: `Bunxt - ${pokemon.name}`,
+    description: `Pokemon page of ${pokemon.name}`,
   };
 }
 
