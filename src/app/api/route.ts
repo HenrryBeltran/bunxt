@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const env = process.env.NODE_ENV;
@@ -12,5 +13,5 @@ export async function GET() {
     path: "/",
   });
 
-  return Response.json({ message: "Hello from NextJS API!", env });
+  return NextResponse.json({ message: "Hello from NextJS API!", env });
 }
