@@ -1,4 +1,5 @@
 import { PokemonSpecies } from "@/components/PokemonSpecies";
+import getAllPokemons from "@/lib/getAllPokemons";
 import getPokemon from "@/lib/getPokemon";
 import getPokemonSpecies from "@/lib/getPokemonSpecies";
 import { Metadata } from "next";
@@ -11,6 +12,8 @@ interface Props {
     pokemonName: string;
   };
 }
+
+export const revalidate = 60;
 
 export async function generateMetadata({
   params: { pokemonName },
@@ -63,4 +66,10 @@ export default async function PokemonPage({ params: { pokemonName } }: Props) {
       </Suspense>
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  const pokemons = await getAllPokemons();
+
+  return pokemons.results.map(pokemon => ({ pokemonName: pokemon.name }));
 }
