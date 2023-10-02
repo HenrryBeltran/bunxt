@@ -19,7 +19,10 @@ export default async function PokemonPage() {
       <div className="space-y-6 text-center">
         {pokemons.map(pokemon => (
           <div key={pokemon.name}>
-            <Link href={pokemon.name} className="text-xl font-bold">
+            <Link
+              href={`/pokemons/${pokemon.name.toLowerCase()}`}
+              className="text-xl font-bold"
+            >
               {pokemon.name}
             </Link>
             <ul className="flex justify-center gap-1">
