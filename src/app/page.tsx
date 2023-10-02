@@ -7,13 +7,13 @@ export default function Home() {
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <div>
           <Link
-            href="about"
+            href="/about"
             className="fixed left-12 top-0 pb-6 pt-8 text-blue-600 underline-offset-2 hover:underline lg:static lg:w-auto lg:p-4"
           >
             About
           </Link>
           <Link
-            href="pokemons"
+            href="/pokemons"
             className="fixed left-12 top-8 pb-6 pt-8 text-blue-600 underline-offset-2 hover:underline lg:static lg:w-auto lg:p-4"
           >
             Pokemons

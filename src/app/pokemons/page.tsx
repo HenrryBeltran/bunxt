@@ -19,12 +19,14 @@ export default async function PokemonPage() {
       <div className="space-y-6 text-center">
         {pokemons.map(pokemon => (
           <div key={pokemon.name}>
-            <h3 className="text-xl font-bold">{pokemon.name}</h3>
+            <Link href={pokemon.name} className="text-xl font-bold">
+              {pokemon.name}
+            </Link>
             <ul className="flex justify-center gap-1">
               {pokemon.type.map(type => (
                 <li
                   key={type}
-                  className="flex justify-center gap-1 tracking-wide text-slate-300 first:after:content-['•'] only:after:content-['']"
+                  className="flex justify-center gap-1 tracking-wide text-slate-500 first:after:content-['•'] only:after:content-[''] dark:text-slate-300"
                 >
                   {type}
                 </li>
